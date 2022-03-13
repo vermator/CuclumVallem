@@ -103,7 +103,7 @@ def load_transform_df(data_folder):
         
         df_final = pd.concat([df_final, df_subfinal.drop('czas',axis=1)])
     df_final = df_final.sort_values('czas_cet')
-    df_final = df_final.rename(columns={"czas_cet":"czas"})
+    df_final = df_final.rename(columns={"czas_cet":"czas_utc"})
     return df_final
 
 
