@@ -68,11 +68,12 @@ def load_transform_df(data_folder):
     df_final = pd.DataFrame()
     
     for temp_zuz_minutes in temp_zuz['czas'].dt.minute.unique():
-        df_subfinal = temp_zuz[temp_zuz['czas'].dt.minute == temp_zuz_minutes][['temp_zuz', 'czas']]
-        df_subfinal['czas'] =df_subfinal['czas'] - pd.Timedelta(temp_zuz_minutes,'m')
+        df_subfinal = pd.DataFrame(temp_zuz[temp_zuz['czas'].dt.minute == temp_zuz_minutes][['temp_zuz', 'czas']])
+        df_subfinal['czas_cet'] = df_subfinal['czas']
+        df_subfinal['czas'] = pd.to_datetime(df_subfinal['czas'] - pd.Timedelta(temp_zuz_minutes,'m'), utc = True)
         for i in range(1,16):
             df_temp = pd.DataFrame(df_tidy.iloc[:,[0,i]])
-            df_temp['czas'] = df_temp['czas'] - pd.Timedelta(temp_zuz_minutes,'m')
+            df_temp['czas'] = pd.to_datetime(df_temp['czas'] - pd.Timedelta(temp_zuz_minutes,'m'))
             time_end = int(req[req['colnames'] == df_tidy.columns[i]].window_end)
             time_length = int(req[req['colnames'] == df_tidy.columns[i]].window_length)
             if time_length<60 :
@@ -80,8 +81,9 @@ def load_transform_df(data_folder):
                 df_temp = pd.DataFrame(df_temp[df_temp['czas_temp'].dt.minute <=time_length])
                 
                 df_temp['czas'] = df_temp['czas_temp'].dt.floor('H', ambiguous = 'NaT')
-                
-                df_subfinal = pd.merge(df_subfinal, df_temp.groupby('czas').mean().reset_index(), on = 'czas', how = 'left')
+                df_temp = df_temp.groupby('czas').mean().reset_index()
+                df_temp['czas'] = pd.to_datetime(df_temp['czas'], utc = True)
+                df_subfinal = pd.merge(df_subfinal, df_temp, on = 'czas', how = 'left')
             else:
                 df_temp['czas_temp'] = df_temp['czas']+pd.Timedelta(time_end + time_length,'m')
                 
@@ -95,18 +97,18 @@ def load_transform_df(data_folder):
                 df_temp['czas_temp'] = df_temp['czas_temp'] - pd.Timedelta(60, 'm')
                 df_temp_temp = pd.concat([df_temp_temp, pd.DataFrame(df_temp[df_temp['czas_temp'].dt.minute <=dummy_time])], ignore_index=True)
                 df_temp_temp['czas'] = df_temp_temp['czas_temp'].dt.floor('H', ambiguous = 'NaT')
-                
-                df_subfinal = pd.merge(df_subfinal, df_temp_temp.groupby('czas').mean().reset_index(), on = 'czas', how = 'left')
+                df_temp = df_temp_temp.groupby('czas').mean().reset_index()
+                df_temp['czas'] = pd.to_datetime(df_temp['czas'], utc= True)
+                df_subfinal = pd.merge(df_subfinal, df_temp, on = 'czas', how = 'left')
         
-        df_subfinal['czas'] = df_subfinal['czas'] + pd.Timedelta(temp_zuz_minutes,'m')
-        df_final = pd.concat([df_final, df_subfinal])
-    df_final = df_final.sort_values('czas')
+        df_final = pd.concat([df_final, df_subfinal.drop('czas',axis=1)])
+    df_final = df_final.sort_values('czas_cet')
+    df_final = df_final.rename(columns={"czas_cet":"czas"})
     return df_final
 
 
 data_folder = './data/zadanie-3-sztuczny-analizator-temperatury-żużla-wewnątrz-pieca-zawiesionowego/'
 
     
-df1 = load_transform_df(data_folder)
-
-df1
+df = load_transform_df(data_folder)
+print(df)
