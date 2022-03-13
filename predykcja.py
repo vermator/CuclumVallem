@@ -7,10 +7,9 @@ def predykcja(df):
     
     df['czas_utc'] = pd.to_datetime(df['czas_utc'])
     df.drop(df[df['koncentrat']==0].index, axis=0, inplace=True) # usunięcie wierszy z koncentratem=0
-    # usuniecie zmiennych skorelowanych
-    df.drop(['prob_corg_proc', 'prob_s_proc', 'prob_fe_proc', 'prazonka_s_proc', 'prazonka_fe_proc'], axis=1, inplace=True)
     # usuniecie zmiennych z p_value>0.5
     df.drop(['prazonka','prob_fe_masa','koncentrat','prob_s_masa','wymurowka_temp'], axis=1, inplace=True) 
+    df.dropna(inplace=True) 
     features = df.drop('temp_zuz',axis=1).diff()
     features['prev_temp_zuz'] = df['temp_zuz'].shift(1)
     features = features.iloc[1:,:]
