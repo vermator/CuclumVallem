@@ -1,16 +1,39 @@
-# CuclumVallem
-Otwórz i uruchom main.py żeby otrzymać predykcję i r-squared modelu - należy podać ścieżkę do folderu (już rozpakowanego) z danymi (obecnie jest tam ścieżka do danych z 3 dnich).
+# CuValleyHack
+## Uruchom aby użyć finalnego modelu
+Uruchom **main.py** żeby otrzymać predykcję i r-squared modelu - należy wpisać ścieżkę do folderu (już rozpakowanego) z danymi (obecnie jest tam ścieżka do danych z 3 dnich) do zmiennej **data_folder**.
 
-Code.ipynb - python script for data preprocessing and preparing data frame for models
+## Opis plików/folderów
+### Skrypty do analizy
 
-models.ipynb - python script for tunining parameter in models
+**Code.ipynb** - skrypt wczytujący dane, wykonujący prepocessing danych a także przygotowujący dane do modelu
 
-data - folder to store all data needed 
+**models.ipynb** - skrypt testujący modele
 
-output - folder to store figures and other results
+**data** - folder, gdzie trzymane są dane
 
-finalized_model.sav - finalny model
+**output** - folder, gdzie znajdują sie wszystkie outputy
 
-preprocessing_danych.py - funkcja pobierająca dane, preprocesująca dane i przygotowująca data frame do skryptu predykcja.py (inputem jest ścieżka do folderu z danymi) 
+**finalized_model.sav** - finalny model (regresja liniowa)
 
-predykcja.py - funkcja biorąca przygotowanego data frama i robiąca predykcję (inputem jest data frame ze skryptu  preprocessing_danych)
+### Finalne skrypty do wczytania i użycia modelu
+
+**preprocessing_danych.py** - funkcja pobierająca dane, preprocesująca dane i przygotowująca data frame do skryptu predykcja.py (inputem jest ścieżka do folderu z danymi) 
+
+**predykcja.py** - funkcja biorąca przygotowanego data frama i robiąca predykcję (inputem jest data frame ze skryptu  preprocessing_danych)
+
+**main.py** - finalny skrypt do użycia finalnego modelu
+
+## Biblioteki
+Potrzebne biblioteki do wykonania main.py: 
+- numpy 
+- pandas
+- seaborn
+- matplotlib.pyplot
+- os
+- openpyxl
+- joblib
+
+Inne potrzebne biblioteki (do Code.ipynb i models.ipynb):
+- IPython.display
+- sklearn
+- statsmodels.api
