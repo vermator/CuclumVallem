@@ -1,5 +1,5 @@
 # CuclumVallem
-Otwórz i uruchom main.py żeby otrzymać predykcję i r-squared modelu - należy podać ścieżkę do folderu z danymi (obecnie jest tam ścieżka do danych z 3 dnich).
+Otwórz i uruchom main.py żeby otrzymać predykcję i r-squared modelu - należy podać ścieżkę do folderu (już rozpakowanego) z danymi (obecnie jest tam ścieżka do danych z 3 dnich).
 
 Code.ipynb - python script for data preprocessing and preparing data frame for models
 
