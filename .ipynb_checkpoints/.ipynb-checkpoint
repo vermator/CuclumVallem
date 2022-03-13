@@ -1,0 +1,77 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "FileNotFoundError",
+     "evalue": "[WinError 3] System nie może odnaleźć określonej ścieżki: './df/zadanie-3-sztuczny-analizator-temperatury-żużla-wewnątrz-pieca-zawiesionowego/'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mFileNotFoundError\u001b[0m                         Traceback (most recent call last)",
+      "\u001b[1;32m<ipython-input-5-8900cc6d082a>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[0;32m     29\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     30\u001b[0m \u001b[0mdata_folder\u001b[0m \u001b[1;33m=\u001b[0m \u001b[1;34m'./df/zadanie-3-sztuczny-analizator-temperatury-żużla-wewnątrz-pieca-zawiesionowego/'\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m---> 31\u001b[1;33m \u001b[0mload_transform_df\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mdata_folder\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[1;32m<ipython-input-5-8900cc6d082a>\u001b[0m in \u001b[0;36mload_transform_df\u001b[1;34m(data_folder)\u001b[0m\n\u001b[0;32m      9\u001b[0m \u001b[1;32mdef\u001b[0m \u001b[0mload_transform_df\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mdata_folder\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     10\u001b[0m     \u001b[0mdf\u001b[0m\u001b[1;33m=\u001b[0m\u001b[0mpd\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mDataFrame\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m---> 11\u001b[1;33m     \u001b[1;32mfor\u001b[0m \u001b[0mfile\u001b[0m \u001b[1;32min\u001b[0m \u001b[0mos\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mlistdir\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mdata_folder\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m     12\u001b[0m         \u001b[1;32mif\u001b[0m \u001b[1;34m'avg_from_'\u001b[0m \u001b[1;32min\u001b[0m \u001b[0mfile\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     13\u001b[0m             \u001b[0mdf\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mpd\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mconcat\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m[\u001b[0m\u001b[0mdf\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mpd\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mread_csv\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mdata_folder\u001b[0m \u001b[1;33m+\u001b[0m \u001b[0mfile\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mdelimiter\u001b[0m\u001b[1;33m=\u001b[0m\u001b[1;34m','\u001b[0m \u001b[1;33m)\u001b[0m\u001b[1;33m]\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;31mFileNotFoundError\u001b[0m: [WinError 3] System nie może odnaleźć określonej ścieżki: './df/zadanie-3-sztuczny-analizator-temperatury-żużla-wewnątrz-pieca-zawiesionowego/'"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "import seaborn as sns\n",
+    "import matplotlib.pyplot as plt\n",
+    "import os\n",
+    "import openpyxl\n",
+    "\n",
+    "\n",
+    "def load_transform_df(data_folder):\n",
+    "    df=pd.DataFrame()\n",
+    "    for file in os.listdir(data_folder):\n",
+    "        if 'avg_from_' in file:\n",
+    "            df = pd.concat([df, pd.read_csv(data_folder + file, delimiter=',' )])            \n",
+    "    df['czas']  = pd.to_datetime(df['czas'])\n",
+    "    \n",
+    "    temp_zuz = pd.read_csv((foldername+'temp_zuz.csv'), delimiter=';')\n",
+    "    temp_zuz['czas'] = pd.to_datetime(temp_zuz['Czas']).dt.tz_localize('CET', ambiguous = 'NaT')\n",
+    "    temp_zuz = temp_zuz.drop('Czas')\n",
+    "    \n",
+    "    opis = pd.read_excel((foldername+'opis_zmiennych.xlsx'), engine='openpyxl')\n",
+    "    opis_zip = zip(opis.Tagname.str.lower(), opis.opis.values)\n",
+    "    opis_dict = dict(opis_zip)\n",
+    "    opis_dict['037tix00254.daca.pv'] = 'TEMP. WODY ZASIL.OBIEG PZ 1'\n",
+    "    opis_dict['037tix00264.daca.pv'] = 'TEMP. WODY ZASIL.OBIEG PZ 2'\n",
+    "    df.rename(columns=opis_dict, inplace=True)\n",
+    "    \n",
+    "    return data_folder\n",
+    "\n",
+    "\n",
+    "data_folder = './df/zadanie-3-sztuczny-analizator-temperatury-żużla-wewnątrz-pieca-zawiesionowego/'\n",
+    "load_transform_df(data_folder)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
