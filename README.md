@@ -13,4 +13,4 @@ finalized_model.sav - finalny model
 
 preprocessing_danych.py - funkcja pobierająca dane, preprocesująca dane i przygotowująca data frame do skryptu predykcja.py (inputem jest ścieżka do folderu z danymi) 
 
-predykcja.py - funkcja biorąca przygotowanego data frama i robiąca produkcje (inputem jest data frame ze skryptu  preprocessing)
+predykcja.py - funkcja biorąca przygotowanego data frama i robiąca predykcję (inputem jest data frame ze skryptu  preprocessing_danych)
