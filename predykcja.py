@@ -2,12 +2,13 @@ import pandas as pd
 import joblib
 
 def predykcja(df):
+    # funkcja zwraca dwa parametry: y_pred - predykcje wartości temperatury żużla i r2 - statystykę r-squared
     filename = 'finalized_model.sav'
     lr = joblib.load(filename)
     
     df['czas_utc'] = pd.to_datetime(df['czas_utc'])
     df.drop(df[df['koncentrat']==0].index, axis=0, inplace=True) # usunięcie wierszy z koncentratem=0
-    # usuniecie zmiennych z p_value>0.5
+    # usuniecie zmiennych, ktore w regresji liniowej miały p_value>0.05
     df.drop(['prazonka','prob_fe_masa','koncentrat','prob_s_masa','wymurowka_temp'], axis=1, inplace=True) 
     df.dropna(inplace=True) 
     features = df.drop('temp_zuz',axis=1).diff()
